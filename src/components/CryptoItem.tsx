@@ -7,9 +7,18 @@ const CryptoItem = (props: CoinsItemsType) => {
     console.log("CRYPTO ITEM");
 
     return (
-        <li>
-            <Link to={`/coins/${props.uuid}`} className="bg-blue-500 text-white p-4">
-                {props.name}
+        <li className="flex justify-center w-full sm:w-1/2 lg:w-1/3 p-2 lg:h-3/5 sm:2/4 crypto-item">
+            <Link to={`/coins/${props.uuid}`} className="w-full p-6">
+                <div className="flex justify-between items-center w-full h-3/6">
+                    <span>{props.name}</span>
+                    <span className="w-fit flex justify-end">
+                        <img className="w-1/6" src={props.iconUrl} alt="icon-url" />
+                    </span>
+                </div>
+                <div className="flex justify-between items-end w-full h-3/6">
+                    <span>{props.symbol}</span>
+                    <h3>{props.price}</h3>
+                </div>
             </Link>
         </li>
     );

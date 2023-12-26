@@ -6,14 +6,16 @@ type CryptoItemsProps = {
     coins: CoinsItemsType[]
 };
 
-const CryptoItems = ({ coins }: CryptoItemsProps) => {
+const CryptoItems: React.FC<CryptoItemsProps> = ({ coins }) => {
     console.log('CRYPTO ITEMS');
 
     return (
-        <ul>
-            {coins.map((coin) => (
-                <CryptoItem key={coin.uuid} {...coin} />
-            ))}
+        <ul className="crypto-container max-w-screen-xl container mx-auto">
+            <div className="flex flex-wrap w-full">
+                {coins.map((coin) => (
+                    <CryptoItem key={coin.uuid} {...coin} />
+                ))}
+            </div>
         </ul>
     );
 };

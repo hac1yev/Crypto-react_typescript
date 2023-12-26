@@ -52,7 +52,7 @@ const Cryptos = () => {
     }
     
     let filteredCoins = useMemo(() => {
-        return coins.filter((coin) => coin.name.includes(filterName));
+        return coins.filter((coin) => coin.name.toLocaleLowerCase('AZ').includes(filterName));
     }, [filterName,coins]);
     
     console.log("CRYPTOS");
@@ -63,7 +63,7 @@ const Cryptos = () => {
             <CryptoFilterForm handleFilterChange={handleFilterChange} />
             <CryptoItems coins={filteredCoins} />
             <MyComponent />
-            <button onClick={handleClick}>Increase</button>
+            <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded" onClick={handleClick}>Increase</button>
             <h2>{count}</h2>
         </div>
     );
