@@ -14,27 +14,43 @@ const Cryptos = () => {
     const dispatch = useDispatch();
     const [count,setCount] = useState(0);
     const [filterName,setFilterName] = useState("");
-    const [crypto,setCrypto] = useState({
-        uuid: "",
-        name: ""
-    });
+    const [cryptoName,setCryptoName] = useState("");
+    const [cryptoIconUrl,setCryptoIconUrl] = useState("");
+    const [cryptoSymbol,setCryptoSymbol] = useState("");
+    const [cryptoPrice,setCryptoPrice] = useState("");    
 
     const handleSubmit = useCallback((e: React.FormEvent) => {
         e.preventDefault();
-        dispatch(cryptoSliceAction.addCrypto(crypto));
-        setCrypto({
-            uuid: "",
-            name: ""
-        })
-    }, [dispatch, crypto])
+        
+        const cryptoData = {
+            uuid: uniqid(),
+            name: cryptoName,
+            iconUrl: cryptoIconUrl,
+            symbol: cryptoSymbol,
+            price: cryptoPrice
+        }
 
-    const handleChange = useCallback((e: React.ChangeEvent<HTMLInputElement>) => {
-        setCrypto(
-            {
-                uuid: uniqid(),
-                name: e.target.value
-            }
-        );
+        console.log(cryptoData)
+
+        dispatch(cryptoSliceAction.addCrypto(cryptoData));
+
+        setCryptoName("");
+        setCryptoIconUrl("");
+        setCryptoSymbol("");
+        setCryptoPrice("");
+    }, [dispatch, cryptoName,cryptoIconUrl,cryptoSymbol,cryptoPrice])
+
+    const handleNameChange = useCallback((e: React.ChangeEvent<HTMLInputElement>) => {
+        setCryptoName(e.target.value)
+    }, []);
+    const handleIconUrlChange = useCallback((e: React.ChangeEvent<HTMLInputElement>) => {
+        setCryptoIconUrl(e.target.value)
+    }, []);
+    const handleSymbolChange = useCallback((e: React.ChangeEvent<HTMLInputElement>) => {
+        setCryptoSymbol(e.target.value)
+    }, []);
+    const handlePriceChange = useCallback((e: React.ChangeEvent<HTMLInputElement>) => {
+        setCryptoPrice(e.target.value)
     }, []);
 
     const handleFilterChange = useCallback((e: React.ChangeEvent<HTMLInputElement>) => {
@@ -59,7 +75,17 @@ const Cryptos = () => {
     
     return (
         <div>
-            <CryptoForm handleSubmit={handleSubmit} handleChange={handleChange} name={crypto.name} />
+            <CryptoForm 
+                handleSubmit={handleSubmit} 
+                handleNameChange={handleNameChange}
+                handleIconUrlChange={handleIconUrlChange}
+                handleSymbolChange={handleSymbolChange}
+                handlePriceChange={handlePriceChange}
+                name={cryptoName}
+                iconUrl={cryptoIconUrl}
+                symbol={cryptoSymbol}
+                price={cryptoPrice}
+            />
             <CryptoFilterForm handleFilterChange={handleFilterChange} />
             <CryptoItems coins={filteredCoins} />
             <MyComponent />
